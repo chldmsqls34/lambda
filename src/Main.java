@@ -1,6 +1,7 @@
 import account.AccountView;
 import board.BoardView;
 import user.UserView;
+import crawler.CrawlerView;
 
 import java.util.Scanner;
 
@@ -17,14 +18,14 @@ public class Main {
                     "1-User " +
                     "2-Board " +
                     "3-Account " +
-                    "4-Product " +
+                    "4-Crawler " +
                     "===");
             switch (sc.next()){
                 case "0":  return;
                 case "1": UserView.main(sc);break;
                 case "2": BoardView.main(); break;
                 case "3": AccountView.main(sc); break;
-                case "4":  break;
+                case "4": CrawlerView.main(sc); break;
             }
         }
     }
