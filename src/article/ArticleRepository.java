@@ -1,35 +1,33 @@
-package user;
+package article;
 
-import crawler.CrawlerRepository;
+import user.UserRepository;
 
 import java.sql.*;
 import java.util.List;
 
-public class UserRepository {
-    private static UserRepository instance;
+public class ArticleRepository {
+    private static ArticleRepository instance;
 
     static {
         try {
-            instance = new UserRepository();
+            instance = new ArticleRepository();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private Connection connection;
-    private UserRepository() throws SQLException {
-       connection = DriverManager.getConnection(
+    private ArticleRepository() throws SQLException {
+        connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/linusdb",
                 "linus","password" );
     }
-    public static UserRepository getInstance(){
+    public static ArticleRepository getInstance(){
         return instance;}
 
-    public String test(){
-        return "UserRepository 연결";
-    }
+
     public List<?> findUsers() throws SQLException {
-        String sql = "select * from board";
+        String sql = "select * from articles";
         System.out.println("sql : "+ sql);
         PreparedStatement pstmt = connection.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
@@ -54,5 +52,4 @@ public class UserRepository {
 
         return null;
     }
-
 }

@@ -1,9 +1,11 @@
 package user;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserView {
-    public static void main(Scanner sc) {
+    public static void main(Scanner sc) throws SQLException {
         UserController userController = new UserController();
         String msg = userController.addUsers();
         System.out.println(" addUsers 결과 : "+msg);
@@ -43,7 +45,8 @@ public class UserView {
                     break;
                 case "6":
                     System.out.println("6-회원목록");
-                    System.out.println(userController.getOne(sc));
+                    List<?> users =userController.findUsers();
+                    users.forEach(i -> System.out.println(i));
                     break;
                 case "7":
                     System.out.println("7-이름검색");

@@ -2,21 +2,27 @@ package user;
 
 import common.AbstractService;
 import common.UtilServiceImpl;
+import crawler.CrawlerRepository;
 import enums.Messenger;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class UserServiceImpl extends AbstractService<User> implements UserService {
 
-    private static UserServiceImpl instance = new UserServiceImpl();
-    Map<String, User> users;
-
+    UserRepository repository;
     private UserServiceImpl(){
         this.users = new HashMap<>();
+        this.repository = UserRepository.getInstance();
     }
     public static UserServiceImpl getInstance(){return instance;}
+
+    private static UserServiceImpl instance = new UserServiceImpl();
+    Map<String, User> users;
+    UserRepository repo;
+
     @Override
     public Messenger save(User user) {
         users.put(user.getUsername(), user);
@@ -119,6 +125,15 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     public Map<String, ?> getUserMap() {
         return users;
     }
+    @Override
+    public String test() {
+        return repo.test();
+    }
+
+    @Override
+    public List<?> findUsers() throws SQLException {
+        return repo.findUsers();
+    }
 
     @Override
     public String addUsers() {
@@ -133,4 +148,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return users.size()+"개 더미값 추가";
 
     }
+
+
 }

@@ -13,9 +13,8 @@ public class BoardView {
 
         for (int i=0;i<5;i++){
             articles. add(Board.builder()
-                    .title(util.createRandomTitle())
-                    .content(util.createRandomContent())
-                    .writer(util.createRandomName())
+                    .boardName(util.createRandomTitle())
+                    .boardType(util.createRandomContent())
                     .build());
         }
         //forEach 사용 예시
