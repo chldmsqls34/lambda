@@ -18,9 +18,8 @@ public class ArticleView {
                     System.out.println("종료");
                     return;
                 case "1":
-                    System.out.println("1");
-                    List<?> users = articleController.findUsers();
-                    users.forEach(i -> System.out.println(i));
+                    articleController.findUsers().forEach(i-> System.out.println(i));
+
                     break;
             }
         }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ArticleController {
-    ArticleServiceImpl service;
+    private ArticleServiceImpl service;
 
     public ArticleController() {
         this.service = ArticleServiceImpl.getInstance();

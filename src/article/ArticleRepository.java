@@ -3,6 +3,7 @@ package article;
 import user.UserRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleRepository {
@@ -27,20 +28,19 @@ public class ArticleRepository {
 
 
     public List<?> findUsers() throws SQLException {
+        List<Article> ls = new ArrayList<>();
         String sql = "select * from articles";
-        System.out.println("sql : "+ sql);
         PreparedStatement pstmt = connection.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
-        if(rs.next()){
-            do{
-                System.out.println("-- inner ---");
-                System.out.printf("ID: %d\t Title: %s\t Content: %s\t Writer: %s\n",
-                        rs.getInt("id"),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4));
-                System.out.println();
-            }while(rs.next());
+        if (rs.next()) {
+            do {
+                ls.add(Article.builder()
+                        .id(rs.getLong("id"))
+                        .title(rs.getString("title"))
+                        .content(rs.getString("content"))
+                        .writer(rs.getString("writer"))
+                        .build());
+            } while (rs.next());
 
         }else{
             System.out.println("데이터가 없습니다.");
@@ -50,6 +50,6 @@ public class ArticleRepository {
         pstmt.close();
         connection.close();
 
-        return null;
+        return ls;
     }
 }

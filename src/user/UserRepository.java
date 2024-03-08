@@ -1,8 +1,10 @@
 package user;
 
+import article.Article;
 import crawler.CrawlerRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
@@ -16,7 +18,7 @@ public class UserRepository {
         }
     }
 
-    private Connection connection;
+    private static Connection connection;
     private UserRepository() throws SQLException {
        connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/linusdb",
@@ -25,23 +27,24 @@ public class UserRepository {
     public static UserRepository getInstance(){
         return instance;}
 
-    public String test(){
-        return "UserRepository 연결";
-    }
     public List<?> findUsers() throws SQLException {
-        String sql = "select * from board";
+        List<User> ls = new ArrayList<>();
+        String sql = "select * from users";
         System.out.println("sql : "+ sql);
         PreparedStatement pstmt = connection.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
         if(rs.next()){
             do{
-                System.out.println("-- inner ---");
-                System.out.printf("ID: %d\t Title: %s\t Content: %s\t Writer: %s\n",
-                        rs.getInt("id"),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4));
-                System.out.println();
+                ls.add(User.builder()
+                        .id(rs.getLong("id"))
+                        .username(rs.getString("username"))
+                        .password(rs.getString("password"))
+                        .name(rs.getString("name"))
+                        .phone(rs.getString("phone"))
+                        .job(rs.getString("job"))
+                        .height(rs.getDouble("height"))
+                        .weight(rs.getDouble("weight"))
+                        .build());
             }while(rs.next());
 
         }else{
@@ -55,4 +58,30 @@ public class UserRepository {
         return null;
     }
 
+    public static void createUsers() throws SQLException {
+        String touch = "CREATE TABLE IF NOT EXISTS users (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "username VARCHAR(20) NOT NULL," +
+                "password VARCHAR(20) NOT NULL," +
+                "name VARCHAR(20)," +
+                "phone VARCHAR(20)," +
+                "job VARCHAR(20)," +
+                "height DOUBLE," +
+                "weight DOUBLE" +
+                ")";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(touch);
+            stmt.close();
+            connection.close();
+
+    }
+
+    public static void deleteUsers() throws SQLException {
+        String rm = "DROP TABLE IF EXISTS users";
+
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(rm);
+        stmt.close();
+        connection.close();
+    }
 }

@@ -13,7 +13,7 @@ public interface UserService {
     List<?> findUsersByJob(String job);
     Map<String, ?> findUsersByJobFromMap(String job);
     Map<String, ?> getUserMap();
-    String test();
-
     List<?> findUsers() throws SQLException;
+    void createUsers() throws SQLException;
+    void deleteUsers() throws SQLException;
 }

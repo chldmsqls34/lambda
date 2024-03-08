@@ -125,14 +125,21 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     public Map<String, ?> getUserMap() {
         return users;
     }
-    @Override
-    public String test() {
-        return repo.test();
-    }
+
 
     @Override
     public List<?> findUsers() throws SQLException {
         return repo.findUsers();
+    }
+
+    @Override
+    public void createUsers() throws SQLException {
+        repo.createUsers();
+    }
+
+    @Override
+    public void deleteUsers() throws SQLException {
+        repo.deleteUsers();
     }
 
     @Override
@@ -148,6 +155,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return users.size()+"개 더미값 추가";
 
     }
+
 
 
 }

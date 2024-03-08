@@ -19,7 +19,9 @@ public class UserView {
                     "6-회원목록\n " +
                     "7-이름검색\n" +
                     "8-직업검색\n" +
-                    "9-회원수");
+                    "9-회원수" +
+                    "touch-테이블생성\n" +
+                    "rm-테이블삭제\n");
             switch (sc.next()){
                 case "0":
                     System.out.println("종료");return;
@@ -59,8 +61,18 @@ public class UserView {
                 case "9":
                     System.out.println("9-회원수");
                     System.out.println(userController.count());
-
                     break;
+                case "touch":
+                    System.out.println("테이블생성");
+                    userController.createUsers();
+                    System.out.println("테이블 생성 성공");
+                    break;
+                case "rm":
+                    System.out.println("테이블삭제");
+                    userController.deleteUsers();
+                    System.out.println("테이블 삭제 성공");
+                    break;
+
 
             }
 
