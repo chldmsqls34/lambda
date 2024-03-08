@@ -69,19 +69,18 @@ public class UserRepository {
                 "height DOUBLE," +
                 "weight DOUBLE" +
                 ")";
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(touch);
-            stmt.close();
+            PreparedStatement pstmt = connection.prepareStatement(touch);
+            pstmt.executeUpdate(touch);
+            pstmt.close();
             connection.close();
 
     }
 
     public static void deleteUsers() throws SQLException {
         String rm = "DROP TABLE IF EXISTS users";
-
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(rm);
-        stmt.close();
+        PreparedStatement pstmt = connection.prepareStatement(rm);
+        pstmt.executeUpdate(rm);
+        pstmt.close();
         connection.close();
     }
 }
