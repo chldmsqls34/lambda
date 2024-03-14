@@ -11,11 +11,10 @@ public class ItemTest {
         Item s = new Item();
         String s3 = s.systemOut();
         System.out.println("-->"+s3);
-        String s2 = "HELLO";
+        String s2 = "Hello";
         Assertions.assertEquals(s.systemOut(),s2);
 
     }
-
     @Test
     public void add() {
         Item a = new Item();

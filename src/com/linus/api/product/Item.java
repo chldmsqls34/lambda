@@ -2,7 +2,7 @@ package com.linus.api.product;
 
 public class Item {
     public  String systemOut(){
-        return "HELLO";
+        return "Hello";
     }
     public int add(int a, int b){
         return a+b;
