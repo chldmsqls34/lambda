@@ -12,13 +12,12 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public enum Navigation {
-
-    Exit("x", sc ->  {
+public enum NavigationOfPredicate {
+    Exit("exit", sc ->  {
         System.out.println("EXIT");
         return false;
     }),
-    User("u", sc -> {
+    User("user", sc -> {
         try {
             UserView.main(sc);
         } catch (SQLException e) {
@@ -26,18 +25,18 @@ public enum Navigation {
         }
         return true;
     }),
-    Board("b", sc -> {
+    Board("board", sc -> {
         System.out.println("Borad");
         BoardView.main(sc);
         return true;
     }),
 
-    Account("m", sc -> {
+    Account("account", sc -> {
         System.out.println("Account");
         AccountView.main(sc);
         return true;
     }),
-    Crawler("c", sc-> {
+    Crawler("crawler", sc-> {
         try {
             CrawlerView.main(sc);
         } catch (IOException e) {
@@ -46,7 +45,7 @@ public enum Navigation {
         return true;
     }),
 
-    Articles("a", sc -> {
+    Articles("article", sc -> {
         try {
             ArticleView.main(sc);
         } catch (SQLException e) {
@@ -54,19 +53,18 @@ public enum Navigation {
         }
         return true;
     }),
-
     ERROR("error", sc-> {
         System.out.println("ERROR 유효하지 않는 문자입니다.");
         return true;
     });
-
     private final String name;
     private final Predicate<Scanner> predicate;
 
-    Navigation(String name, Predicate<Scanner> predicate) {
+    NavigationOfPredicate(String name, Predicate<Scanner> predicate) {
         this.name = name;
         this.predicate = predicate;
     }
+
     public static boolean select(Scanner sc) {
         System.out.println("\n === x-Exit +" +
                 "u-User " +
@@ -81,4 +79,3 @@ public enum Navigation {
                 .findAny().orElse(ERROR).predicate.test(sc);
     }
 }
-

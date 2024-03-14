@@ -9,65 +9,55 @@ import com.linus.api.user.UserView;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.function.Predicate;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
-public enum Navigation {
-
-    Exit("x", sc ->  {
-        System.out.println("EXIT");
-        return false;
-    }),
-    User("u", sc -> {
+public enum NavigationOfFunction {
+    Exit("exit",i->"x"),
+    User("User",i-> {
         try {
-            UserView.main(sc);
+            UserView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return "";
     }),
-    Board("b", sc -> {
-        System.out.println("Borad");
-        BoardView.main(sc);
-        return true;
-    }),
-
-    Account("m", sc -> {
-        System.out.println("Account");
-        AccountView.main(sc);
-        return true;
-    }),
-    Crawler("c", sc-> {
+    Board("Board",i-> {BoardView.main(i);
+    return "";}),
+    Account("Account",i->{AccountView.main(i);
+    return "";}),
+    Crawler("Crawler",i-> {
         try {
-            CrawlerView.main(sc);
+            CrawlerView.main(i);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return "";
     }),
-
-    Articles("a", sc -> {
+    Article("Article",i-> {
         try {
-            ArticleView.main(sc);
+            ArticleView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return "";
     }),
-
-    ERROR("error", sc-> {
+    ERROR("error", i-> {
         System.out.println("ERROR 유효하지 않는 문자입니다.");
-        return true;
+        return "";
     });
 
-    private final String name;
-    private final Predicate<Scanner> predicate;
 
-    Navigation(String name, Predicate<Scanner> predicate) {
+    private final String name;
+    private final Function<Scanner,String> function;
+
+    NavigationOfFunction(String name, Function<Scanner, String> function) {
         this.name = name;
-        this.predicate = predicate;
+        this.function = function;
     }
-    public static boolean select(Scanner sc) {
+
+
+    public static String select(Scanner sc) {
         System.out.println("\n === x-Exit +" +
                 "u-User " +
                 "b-Board " +
@@ -75,10 +65,12 @@ public enum Navigation {
                 "c-Crawler " +
                 "a-Articles" +
                 "===");
-        String str = sc.next();
+        String Menu = sc.next();
         return Stream.of(values())
-                .filter(i -> i.name.equals(str))
-                .findAny().orElse(ERROR).predicate.test(sc);
+                .filter(i->i.name.equals(Menu))
+                .findAny()
+                .orElseGet(()->Exit)
+                .function.apply(sc);
+
     }
 }
-

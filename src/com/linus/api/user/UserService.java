@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+    Messenger save(User user);
     String addUsers();
     String login(User user);
     String updatePassword(User user);
@@ -18,4 +19,5 @@ public interface UserService {
     List<?> findUsers() throws SQLException;
     Messenger createUsers() throws SQLException;
     void deleteUsers() throws SQLException;
+
 }

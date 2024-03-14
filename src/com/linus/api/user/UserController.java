@@ -1,6 +1,8 @@
 package com.linus.api.user;
 
 import com.linus.api.enums.Messenger;
+import com.linus.api.enums.UserRouter;
+import lombok.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,6 +11,11 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class UserController {
+
+    private static UserController instance = new UserController();
+    public static UserController getInstance(){
+        return instance;
+    }
 
     UserServiceImpl service;
 
@@ -21,11 +28,16 @@ public class UserController {
     }
 
     public String save(Scanner scanner) {
+        System.out.println("아이디:" +
+                "주소" +
+                "전화번호" +
+                "비밀번호");
         service.save(User.builder()
                 .username(scanner.next())
+                .password(scanner.next())
+                .name(scanner.next())
                 .address(scanner.next())
                 .phone(scanner.next())
-                .password(scanner.next())
                 .build());
         return "회원가입 성공";
     }
@@ -99,6 +111,7 @@ public class UserController {
     public Messenger createUsers() throws SQLException {
         return service.createUsers();
     }
+
 
     public void deleteUsers() throws SQLException {
         service.deleteUsers();
