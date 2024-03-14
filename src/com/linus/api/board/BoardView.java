@@ -5,9 +5,10 @@ import com.linus.api.common.UtilServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class BoardView {
-    public static void main() {
+    public static void main(Scanner sc) {
         List<Board> articles = new ArrayList<>();
         UtilService util = UtilServiceImpl.getInstance();
 

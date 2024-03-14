@@ -67,7 +67,7 @@ public enum Navigation {
         this.name = name;
         this.predicate = predicate;
     }
-    public static boolean navigate(Scanner sc) {
+    public static boolean select(Scanner sc) {
         System.out.println("\n === x-Exit +" +
                 "u-User " +
                 "b-Board " +
