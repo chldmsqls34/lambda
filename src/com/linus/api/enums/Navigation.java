@@ -1,6 +1,8 @@
 package com.linus.api.enums;
 
+import com.linus.api.account.AccountView;
 import com.linus.api.article.ArticleView;
+import com.linus.api.board.BoardView;
 import com.linus.api.crawler.CrawlerView;
 import com.linus.api.user.UserView;
 
@@ -12,46 +14,48 @@ import java.util.stream.Stream;
 
 public enum Navigation {
 
-    Exit("x", scanner ->  {
+    Exit("x", sc ->  {
         System.out.println("EXIT");
         return false;
     }),
-    User("u", scanner -> {
+    User("u", sc -> {
         try {
-            UserView.main(scanner);
+            UserView.main(sc);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return true;
     }),
-    Board("b", scanner -> {
+    Board("b", sc -> {
         System.out.println("Borad");
+        BoardView.main();
         return true;
     }),
 
-    Account("m", scanner -> {
+    Account("m", sc -> {
         System.out.println("Account");
+        AccountView.main(sc);
         return true;
     }),
-    Crawler("c", scanner-> {
+    Crawler("c", sc-> {
         try {
-            CrawlerView.main(scanner);
+            CrawlerView.main(sc);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return true;
     }),
 
-    Articles("a", scanner -> {
+    Articles("a", sc -> {
         try {
-            ArticleView.main(scanner);
+            ArticleView.main(sc);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return true;
     }),
 
-    ERROR("error", scanner-> {
+    ERROR("error", sc-> {
         System.out.println("ERROR 유효하지 않는 문자입니다.");
         return true;
     });
