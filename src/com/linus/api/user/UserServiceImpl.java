@@ -133,12 +133,12 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
 
     @Override
     public Messenger createUsers() throws SQLException {
-        return repo.createUsers();
+        return repo.createUserTable();
     }
 
     @Override
     public void deleteUsers() throws SQLException {
-        repo.deleteUsers();
+        repo.deleteUserTable();
     }
 
 

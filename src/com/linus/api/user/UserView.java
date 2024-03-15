@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class UserView {
     public static void main(Scanner sc) throws SQLException {
+        UserController.getInstance().deleteUsers();
+        UserController.getInstance().createUsers();
         while(UserRouter.selectUser(sc));
 
     }

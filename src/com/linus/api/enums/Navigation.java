@@ -4,6 +4,7 @@ import com.linus.api.account.AccountView;
 import com.linus.api.article.ArticleView;
 import com.linus.api.board.BoardView;
 import com.linus.api.crawler.CrawlerView;
+import com.linus.api.menu.MenuController;
 import com.linus.api.user.UserView;
 
 import java.io.IOException;
@@ -68,16 +69,9 @@ public enum Navigation {
         this.predicate = predicate;
     }
     public static boolean select(Scanner sc) {
-        System.out.println("\n === x-Exit +" +
-                "u-User " +
-                "b-Board " +
-                "m-Account " +
-                "c-Crawler " +
-                "a-Articles" +
-                "===");
+        MenuController.getInstance().printMenusByCategory("navigate");
         String str = sc.next();
-        return Stream.of(values())
-                .filter(i -> i.name.equals(str))
+        return Stream.of(values()).filter(i -> i.name.equals(str))
                 .findAny().orElse(ERROR).predicate.test(sc);
     }
 }

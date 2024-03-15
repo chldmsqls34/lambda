@@ -1,6 +1,7 @@
 package com.linus.api.user;
 
 import com.linus.api.enums.Messenger;
+import lombok.Getter;
 
 import java.lang.reflect.Member;
 import java.sql.*;
@@ -11,6 +12,7 @@ import static com.linus.api.enums.Messenger.FAIL;
 import static com.linus.api.enums.Messenger.SUCCESS;
 
 public class UserRepository {
+    @Getter
     private static UserRepository instance;
     private PreparedStatement pstmt;
     private ResultSet rs;
@@ -29,8 +31,6 @@ public class UserRepository {
                 "jdbc:mysql://localhost:3306/linusdb",
                 "linus","password" );
     }
-    public static UserRepository getInstance(){
-        return instance;}
 
 
     public List<?> findUsers() throws SQLException {
@@ -60,7 +60,9 @@ public class UserRepository {
         return null;
     }
 
-    public static Messenger createUsers() throws SQLException {
+
+
+    public static Messenger createUserTable() throws SQLException {
         String touch = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "username VARCHAR(20) NOT NULL," +
@@ -75,7 +77,7 @@ public class UserRepository {
             return (pstmt.executeUpdate(touch)==0) ? SUCCESS : FAIL;
     }
 
-    public static void deleteUsers() throws SQLException {
+    public static void deleteUserTable() throws SQLException {
         String rm = "DROP TABLE IF EXISTS users";
         PreparedStatement pstmt = connection.prepareStatement(rm);
         pstmt.executeUpdate(rm);

@@ -1,6 +1,7 @@
 package com.linus.api.enums;
 
 
+import com.linus.api.menu.MenuController;
 import com.linus.api.user.UserController;
 
 import java.sql.SQLException;
@@ -91,25 +92,10 @@ public enum UserRouter {
     }
 
     public static boolean selectUser(Scanner sc) {
-        System.out.println("[사용자메뉴] 0-종료\n " +
-                "1-회원가입\n " +
-                "2-로그인\n " +
-                "3-ID검색\n " +
-                "4-비번변경\n" +
-                "5-탈퇴\n " +
-                "6-회원목록\n " +
-                "7-이름검색\n" +
-                "8-직업검색\n" +
-                "9-회원수" +
-                "touch-테이블생성\n" +
-                "rm-테이블삭제\n");
-        String msg = sc.next();
-        return Stream.of(values())
-                .filter(i->i.name.equals(msg))
-                .findAny()
-                .orElseGet(()->ERROR)
-                .predicate.test(sc);
+        MenuController.getInstance().printMenusByCategory("user");
+        String str = sc.next();
+        return Stream.of(values()).filter(i -> i.name.equals(str))
+                .findAny().orElse(ERROR).predicate.test(sc);
     }
-
 
 }

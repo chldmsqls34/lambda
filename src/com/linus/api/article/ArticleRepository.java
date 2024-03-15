@@ -1,10 +1,13 @@
 package com.linus.api.article;
 
+import lombok.Getter;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleRepository {
+    @Getter
     private static ArticleRepository instance;
 
     static {
@@ -21,8 +24,6 @@ public class ArticleRepository {
                 "jdbc:mysql://localhost:3306/linusdb",
                 "linus","password" );
     }
-    public static ArticleRepository getInstance(){
-        return instance;}
 
 
     public List<?> findUsers() throws SQLException {
