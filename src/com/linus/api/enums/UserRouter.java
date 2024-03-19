@@ -3,37 +3,41 @@ package com.linus.api.enums;
 
 import com.linus.api.menu.MenuController;
 import com.linus.api.user.UserController;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
+@RequiredArgsConstructor
+private final UserController controller;
 
 public enum UserRouter {
+
     EXIT("exit", sc ->  {
         System.out.println("EXIT");
         return false;
     }),
     JOIN("join", sc -> {
-        UserController.getInstance().save(sc);
+        controller.save(sc);
         return true;
     }),
     LOGIN("login",sc->{
-        UserController.getInstance().login(sc);
+        controller.login(sc);
         return true;
     }),
     IDSEARCH("idsearch",sc->{
-        UserController.getInstance().findById(sc);
+        controller.findById(sc);
         return true;
     }),
     PASSWORDCHANGE("passwordchange",sc->{
-        UserController.getInstance().updatePassword(sc);
+        controller.updatePassword(sc);
         return true;
     }),
     DELETE("delete",sc->{
-        UserController.getInstance().delete(sc);
+        controller.delete(sc);
         return true;
     }
 
@@ -41,7 +45,7 @@ public enum UserRouter {
     USERLIST("userlist",sc->{
         List<?> users = null;
         try {
-            users = UserController.getInstance().findUsers();
+            users = controller.findUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,20 +53,20 @@ public enum UserRouter {
         return true;
     }),
     NAMESEARCH("namesearch",sc->{
-        UserController.getInstance().findUsersByName(sc);
+        controller.findUsersByName(sc);
         return true;
     }),
     JOBSEARCH("jobsearch",sc->{
-        UserController.getInstance().findUsersByJob(sc);
+        controller.findUsersByJob(sc);
         return true;
     }),
     USERCOUNT("count",sc->{
-        UserController.getInstance().count();
+        controller.count();
         return true;
     }),
     TABLECREATE("tablecreate",sc->{
         try {
-            UserController.getInstance().createUsers();
+            controller.createUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +74,7 @@ public enum UserRouter {
     }),
     TABLEDELETE("tabledelete",sc->{
         try {
-            UserController.getInstance().deleteUsers();
+            controller.deleteUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

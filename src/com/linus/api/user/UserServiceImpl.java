@@ -3,24 +3,19 @@ package com.linus.api.user;
 import com.linus.api.common.AbstractService;
 import com.linus.api.common.UtilServiceImpl;
 import com.linus.api.enums.Messenger;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+@RequiredArgsConstructor
+
 
 public class UserServiceImpl extends AbstractService<User> implements UserService {
-
-    UserRepository repository;
-    private UserServiceImpl(){
-        this.users = new HashMap<>();
-        this.repository = UserRepository.getInstance();
-    }
-    public static UserServiceImpl getInstance(){return instance;}
-
-    private static UserServiceImpl instance = new UserServiceImpl();
+    private final UserRepository repo;
     Map<String, User> users;
-    UserRepository repo;
+
 
     @Override
     public Messenger save(User user) {

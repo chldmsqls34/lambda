@@ -12,19 +12,10 @@ import static com.linus.api.enums.Messenger.FAIL;
 import static com.linus.api.enums.Messenger.SUCCESS;
 
 public class UserRepository {
-    @Getter
-    private static UserRepository instance;
     private PreparedStatement pstmt;
     private ResultSet rs;
     private static Connection connection;
 
-    static {
-        try {
-            instance = new UserRepository();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     private UserRepository() throws SQLException {
        connection = DriverManager.getConnection(

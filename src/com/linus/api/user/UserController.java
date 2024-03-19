@@ -9,19 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
+@RequiredArgsConstructor
+
 
 public class UserController {
+    private final UserServiceImpl service;
 
-    private static UserController instance = new UserController();
-    public static UserController getInstance(){
-        return instance;
-    }
-
-    UserServiceImpl service;
-
-    public UserController() {
-        this.service = UserServiceImpl.getInstance();
-    }
 
     public String addUsers() {
         return service.addUsers();

@@ -11,4 +11,13 @@ public class BoardServiceImpl implements BoardService {
         repo = BoardRepository.getInstance();
     }
 
+    @Override
+    public void deleteBoards() {
+
+    }
+
+    @Override
+    public void createBoards() {
+
+    }
 }

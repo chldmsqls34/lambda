@@ -11,4 +11,12 @@ public class BoardController {
         this.service = BoardServiceImpl.getInstance();
     }
 
+
+    public void deleteBoards() {
+        service.deleteBoards();
+    }
+
+    public void createBoards() {
+        service.createBoards();
+    }
 }

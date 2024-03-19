@@ -86,8 +86,8 @@ public class MenuRepository {
     }
 
 
-//    public List<Menu> makeFoobar() throws SQLException {
 //        //리턴타입이 리스트인경우
+//    public List<Menu> makeFoobar() throws SQLException {
 //        String sql ="";
 //        pstmt = connection.prepareStatement(sql);
 //        rs = pstmt.executeQuery();
